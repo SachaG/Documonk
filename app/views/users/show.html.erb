@@ -1,0 +1,11 @@
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.email %>
+</h1>
+<strong>URL</strong>  <%= link_to user_path(@user), @user %><br/>
+<hr/>
+<% unless @user.documents.empty? %>
+  <div class="documents">
+    <%= render @documents %>
+  </div>
+<% end %>
