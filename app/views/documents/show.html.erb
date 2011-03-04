@@ -1,3 +1,6 @@
 <h1><%= @document.title %></h1>
 <%= link_to "Edit document", edit_document_path %>
-<p><%= @document.content %></p>
+<p>
+<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
+
+</p>

@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    RedCloth (4.2.7)
     abstract (1.0.0)
     actionmailer (3.0.5)
       actionpack (= 3.0.5)
@@ -79,6 +80,8 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.5.0)
+    sanitize (2.0.0)
+      nokogiri (~> 1.4.4)
     sqlite3-ruby (1.3.2)
     thor (0.14.6)
     treetop (1.4.9)
@@ -95,10 +98,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   devise
   gravatar_image_tag (= 1.0.0.pre2)
   rails (= 3.0.5)
   rspec (= 2.5.0)
   rspec-rails (= 2.5.0)
+  sanitize
   sqlite3-ruby (= 1.3.2)
   webrat (= 0.7.1)
