@@ -9,7 +9,8 @@
 <body>
 	<!-- layouts/application.html.erb -->
 <div id="container">
-<div id="header">		
+<div id="header">
+	<div id="logo"><%= link_to "Home", root_path %></div>		
 	<div id="nav">
 		<% if user_signed_in? %>
 	 		<%= link_to "Home", root_path %> |

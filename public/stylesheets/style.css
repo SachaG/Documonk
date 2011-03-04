@@ -3,13 +3,25 @@ body{
 }
 #container{
 	width:820px;
-	margin:50px auto;	
+	margin:20px auto;	
 }
 #header{
 	overflow:hidden;
 	margin-bottom:10px;
 }
+#logo{
+	float:left;
+}
+#logo a{
+	display:block;
+	background:url("../images/logo-med.png");
+	width:217px;
+	height:59px;
+	overflow:hidden;
+	text-indent:-900px;
+}
 #nav{
+	margin-top:30px;
 	float:right;
 	height:20px;
 }
