@@ -1,13 +1,42 @@
 body{
 	background:url("../images/bg.png");
 }
+#container{
+	width:820px;
+	margin:50px auto;	
+}
+#header{
+	overflow:hidden;
+	margin-bottom:10px;
+}
+#nav{
+	float:right;
+	height:20px;
+}
 .page{
 	background:#fff;
-	width:860px;
-	margin:50px auto;
 	border:1px solid #d3c7bf;
 	padding:40px;
 	-webkit-box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
 	-moz-box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
 	box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
+}
+
+#toc{
+	position:fixed;
+	top:80px;
+	left:20px;
+	background:#fff;
+	width:120px;
+	border:1px solid #d3c7bf;
+	padding:20px;
+	-webkit-box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
+	-moz-box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
+	box-shadow: 1px 3px 3px rgba(0,0,0,0.15);	
+}
+
+.document-nav{
+	background:#eee;
+	padding:5px;
+	margin:20px 0;
 }

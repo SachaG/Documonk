@@ -1,6 +1,13 @@
+<div id="toc">
+	<h3><%= @document.title %></h3>
+	<ol id="toc-inner"></ol>
+</div>
+<div class="document-nav">
+		<%= link_to "Edit document", edit_document_path %> |
+		<%= link_to "Download PDF", document_path(@document, :format => "pdf") %>
+</div>
 <h1><%= @document.title %></h1>
-<%= link_to "Edit document", edit_document_path %>
-<p>
-<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
 
-</p>
+<div id="content">
+	<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
+</div>

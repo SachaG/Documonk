@@ -6,6 +6,7 @@ gem 'devise'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'RedCloth'
 gem 'sanitize'
+gem 'prawn'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
