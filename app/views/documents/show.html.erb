@@ -3,7 +3,9 @@
 	<ol id="toc-inner"></ol>
 </div>
 <div class="document-nav">
+	<% if can? :update, @document %>
 		<%= link_to "Edit document", edit_document_path %> |
+	<% end %>
 		<%= link_to "Download PDF", document_path(@document, :format => "pdf") %>
 </div>
 <h1><%= @document.title %></h1>

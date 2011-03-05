@@ -1,21 +1,27 @@
 class UsersController < ApplicationController
-  
+  before_filter :set_user, :only => [:show, :edit, :update, :destroy]
+ 
   def index
     @title = "All users"
     @users = User.all
   end
 
   def show
-    @user=current_user
     @documents = current_user.documents   
   end
 
   
   def edit
     @title = "Edit user"
+    authorize! :update, @user
   end
 
   def update
+    #see http://www.tonyamoyal.com/2010/09/29/rails-authentication-with-devise-and-cancan-part-2-restful-resources-for-administrators/
+    if params[:user][:password].blank?
+      [:password].collect{|p| params[:user].delete(p) }
+    end
+    
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
       redirect_to @user
@@ -26,20 +32,15 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = "User destroyed."
     redirect_to users_path
   end
   
   private
     
-    def correct_user
+    def set_user
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
     end
-    
-    def admin_user
-      redirect_to(root_path) unless current_user.admin?
-    end
-    
+
 end

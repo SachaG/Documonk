@@ -1,6 +1,10 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
   
+  def index
+    @document = Document.all
+  end
+  
   def show
     @document = Document.find(params[:id])
   end
@@ -25,6 +29,7 @@ class DocumentsController < ApplicationController
   def edit
     @document = Document.find(params[:id])
     @title = "Edit document"
+    authorize! :update, @document
   end
   
   def update
@@ -37,5 +42,10 @@ class DocumentsController < ApplicationController
       render 'edit'
     end
   end 
-    
+  
+  def destroy
+    Document.find(params[:id]).destroy
+    flash[:success] = "Document destroyed."
+    redirect_to documents_path
+  end
 end

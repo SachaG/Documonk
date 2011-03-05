@@ -2,6 +2,9 @@
   <%= gravatar_for @user %>
   <%= @user.email %>
 </h1>
+	<% if can? :edit, @user %>
+		<%= link_to "Edit", edit_user_path(@user) %>
+	<% end %>
 <strong>URL</strong>  <%= link_to user_path(@user), @user %><br/>
 <hr/>
 <% unless @user.documents.empty? %>

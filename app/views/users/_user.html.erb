@@ -1,4 +1,11 @@
 <li>
   <%= gravatar_for user, :size => 30 %>
   <%= link_to user.email, user %>
+	<% if can? :update, user %>
+		<%= link_to "Edit", edit_user_path(user.id), :class => "small" %>
+	<% end %>
+	<% if can? :destroy, user %>
+		| <%= link_to "Delete", user, :method => :delete, :confirm => "You sure?",
+	                               :title => "Delete #{user.email}",:class => "small delete"  %>
+	<% end %>
 </li>

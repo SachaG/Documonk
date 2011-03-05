@@ -1,4 +1,11 @@
 <li>
-	<span class="content"><%= link_to document.title, document %></span><br/>
+	<span class="content"><%= link_to document.title, document %></span> <span class="small">by <span class="user"><%= link_to document.user.email, document.user %></span></span><br/>
 	<span class="timestamp small">Posted <%= time_ago_in_words(document.created_at) %> ago.</span>
+	<% if can? :update, document %>
+		<%= link_to "Edit", edit_document_path(document.id), :class => "small" %>
+	<% end %>
+	<% if can? :destroy, document %>
+		| <%= link_to "Delete", document, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete #{document.title}",:class => "small delete"  %>
+	<% end %>
 </li>
