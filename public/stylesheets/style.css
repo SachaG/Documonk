@@ -1,6 +1,13 @@
+	@import url('blueprint/screen.css');
+
+
+
 body{
 	background:url("../images/bg.png");
 	font-size:14px;
+}
+#tinyMCE_body{
+	background:#fff;
 }
 h1,h2,h3,h4,h5,h6{
 	/*font-family:"Copse", sans-serif;¨*/
@@ -59,4 +66,14 @@ h1,h2,h3,h4,h5,h6{
 
 .delete{
 	color:red;
+}
+
+#document_content{
+	height:100%;
+}
+.foobar{
+	background:red !important;
+}
+.mceLayout, .mceLayout tr, .mceLayout td{
+	border:none !important;
 }
