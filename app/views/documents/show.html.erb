@@ -1,10 +1,13 @@
+
+<%= render 'shared/aloha' %>
 <div id="toc">
 	<h3><%= @document.title %></h3>
 	<ol id="toc-inner"></ol>
 </div>
 <div class="document-nav">
 	<% if can? :update, @document %>
-		<%= link_to "Edit document", edit_document_path %> |
+		<%= link_to "Edit Document", edit_document_path %> |
+		<%= link_to "Ajax Edit", edit_document_path, :class => "ajax_edit" %> | 
 	<% end %>
 		<%= link_to "Download PDF", document_path(@document, :format => "pdf") %>
 </div>

@@ -12,10 +12,22 @@
     <%= f.label :twitteraccount %><br />
     <%= f.text_field :twitteraccount %>
   </div>
-	<% if @user.role?(:admin) %>
+	<% if current_user.role?(:admin) %>
 	  <div class="field">
-	    <%= f.label :role %><br />
-	    <%= f.text_field :role %>
+	    <%#= f.label :role %><br />
+	    <%#= f.text_field :role %>
+		<label for="roles">Roles</label>
+		<ul>
+		<% @roles.each do |role| %>
+		<li>
+			<%= check_box_tag(
+	                           "user[role_list][#{role.id}]", 
+	                           "1", 
+	                           @user.roles.detect{|d| d == role}) %>
+			<%= "#{role.name}"%>
+		</li>
+		<% end %>
+		</ul>
 	  </div>
 	<% end %>
   <div class="actions">

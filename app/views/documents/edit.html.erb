@@ -1,6 +1,6 @@
 <%#= render 'shared/tinymce' %>
-<%= render 'shared/aloha' %>
-
+<%#= render 'shared/aloha' %>
+<%= link_to "Back to document", document_path %><br/>
 <%= form_for(@document) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">

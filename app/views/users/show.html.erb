@@ -2,10 +2,17 @@
   <%= gravatar_for @user %>
   <%= @user.email %>
 </h1>
-	<% if can? :edit, @user %>
+<ul>
+	<li><strong>Role:</strong> <%= @user.role! %> </li>
+	<li><strong>URL:</strong>  <%= link_to user_path(@user), @user %></li>
+	<li><strong>Twitter:</strong>  <%= @user.twitteraccount %></li>
+	<li><% if can? :edit, @user %>
 		<%= link_to "Edit", edit_user_path(@user) %>
 	<% end %>
-<strong>URL</strong>  <%= link_to user_path(@user), @user %><br/>
+	</li>
+</ul>
+	
+<br/>
 <hr/>
 <% unless @user.documents.empty? %>
   <div class="documents">
