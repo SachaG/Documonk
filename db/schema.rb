@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305025553) do
+ActiveRecord::Schema.define(:version => 20110308074827) do
 
   create_table "documents", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(:version => 20110305025553) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+# Could not dump table "notes" because of following StandardError
+#   Unknown type 'id' for column 'user_id'
 
   create_table "roles", :force => true do |t|
     t.string   "name"

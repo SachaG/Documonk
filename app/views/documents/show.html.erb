@@ -1,16 +1,16 @@
+<%#= render 'highlight' %>
+<%= render 'chili' %>
+<%#= render 'documents/aloha' %>
+<%= render 'documents/custom' %>
 
-<%= render 'shared/aloha' %>
-<div id="toc">
-	<h3><%= @document.title %></h3>
-	<ol id="toc-inner"></ol>
-</div>
-<div class="document-nav">
-	<% if can? :update, @document %>
-		<%= link_to "Edit Document", edit_document_path %> |
-		<%= link_to "Ajax Edit", edit_document_path, :class => "ajax_edit" %> | 
-	<% end %>
-		<%= link_to "Download PDF", document_path(@document, :format => "pdf") %>
-</div>
+<%= javascript_include_tag 'jquery-ui-1.8.10.custom.min' %>
+
+
+<%= javascript_include_tag 'jquery.tableofcontents' %>
+<%= javascript_include_tag 'monk.document.show' %>
+
+<%= render 'documents/palette' %>
+
 <h1><%= @document.title %></h1>
 
 <div id="content">

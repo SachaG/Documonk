@@ -1,0 +1,12 @@
+<%= javascript_include_tag 'chili/jquery.chili-2.2' %>
+<%= javascript_include_tag 'chili/recipes' %>
+
+<script type="text/javascript">
+	ChiliBook.recipeFolder = "/javascripts/chili/";
+	ChiliBook.automatic = true; 
+ChiliBook.lineNumbers = true; 
+
+$().ready(function() {
+	$("code").chili();
+});
+</script> 

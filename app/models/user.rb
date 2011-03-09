@@ -5,9 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitteraccount
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitteraccount, :role_list
   
   has_many :documents, :dependent => :destroy
+  has_many :notes
  
   has_and_belongs_to_many :roles
 
@@ -28,7 +29,9 @@ class User < ActiveRecord::Base
       return self.roles[0].name
     end
   end
+  
   protected
+  
       def password_required?
         !persisted? || password.present? || password_confirmation.present?
       end
@@ -36,6 +39,7 @@ class User < ActiveRecord::Base
   private 
 
       def update_roles
+        # puts "roles => #{role_list.inspect}"
         roles.delete_all
         selected_roles = role_list.nil? ? [] : role_list.keys.collect{|id| Role.find_by_id(id)}
         selected_roles.each {|role| self.roles << role}

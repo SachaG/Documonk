@@ -1,0 +1,9 @@
+<h4><%= link_to "< Back to notes", document_notes_path %></h4>
+
+<ul>
+	<li><strong>Type:</strong> <%= @note.note_type %></li>
+	<li><strong>Document:</strong> <%= @note.document.title %></li>
+	<li><strong>User:</strong> <%= @note.user.email %></li>
+	<li><strong>Content:</strong> <%= @note.content %></li>
+	<li><strong>Position:</strong> <%= @note.position %></li>
+</ul>

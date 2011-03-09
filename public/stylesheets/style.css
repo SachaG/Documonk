@@ -45,17 +45,20 @@ h1,h2,h3,h4,h5,h6{
 	box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
 }
 
-#toc{
+#palette{
 	position:fixed;
 	top:80px;
 	left:20px;
-	background:#fff;
-	width:120px;
-	border:1px solid #d3c7bf;
+	width:190px;
+}
+#palette>div{
 	padding:20px;
+	background:#fff;
 	-webkit-box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
 	-moz-box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
-	box-shadow: 1px 3px 3px rgba(0,0,0,0.15);	
+	box-shadow: 1px 3px 3px rgba(0,0,0,0.15);
+	border:1px solid #d3c7bf;
+	margin-top:-1px;
 }
 
 .document-nav{
@@ -76,4 +79,63 @@ h1,h2,h3,h4,h5,h6{
 }
 .mceLayout, .mceLayout tr, .mceLayout td{
 	border:none !important;
+}
+
+.editing{
+	background:#FEFFE0;
+}
+.active{
+	background:#eee;
+}
+.hilite{
+	display:inline-block;
+	background:red;
+	color:white;
+}
+.ui-tabs { position: relative; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding: 0 0 0 1px;
+}
+.ui-tabs .ui-tabs-nav li {
+	list-style: none;
+	float: left;
+	position: relative;
+	margin: 0 0 0 0;
+	padding: 0;
+	white-space: nowrap;
+}
+.ui-tabs .ui-tabs-nav li a {
+	display:block;
+	padding: 6px 8px;
+	text-decoration: none;
+	border:1px solid #d3c7bf;
+	background:#fff;
+	margin-left:-1px;
+	line-height:1;
+	font-size:13px;
+	font-weight:bold;
+	background:#eee;
+	/*-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;*/
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a{
+	border-bottom:1px solid #fff;
+	background:#fff;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+	cursor: text;
+}
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+	cursor: pointer;
+} /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-panel {
+	display: block; 
+	border-width: 0; 
+	background: none;
+}
+.ui-tabs .ui-tabs-hide {
+	display: none !important;
 }

@@ -8,6 +8,8 @@ gem 'RedCloth'
 gem 'sanitize'
 gem 'prawn'
 gem 'cancan'
+gem 'inherited_resources', '~> 1.2.1'
+
 
 group :development do
   gem 'rspec-rails', '2.5.0'

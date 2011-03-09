@@ -1,0 +1,48 @@
+<div id="palette">
+		<ul>
+			<li><a href="#info">Info</a></li>
+			<li><a href="#toc">T.O.C.</a></li>
+			<% if can? :update, @document %>
+				<li><a class="edit-link" href="#edit">Edit</a></li>
+			<% end %>
+		</ul>
+		<div id="info">
+			<%= link_to "Download PDF", document_path(@document, :format => "pdf") %><br/>
+			<%= link_to "View Notes", document_notes_url(@document)%>
+			<%= link_to "Add Note", new_document_note_url(@document)%>
+		</div>
+		<div id="toc">
+			<h3><%= @document.title %></h3>
+			<ol id="toc-inner"></ol>
+		</div>
+		<div id="edit">
+			Now editing…<br/>
+			<ul>
+			<li><a class="save-link" href="#">Save</a></li>
+			<li><a class="start-link" href="#">Start editing</a></li>
+			<li><a class="finish-link" href="#">Done editing</a></li>
+			</ul>
+			
+			Toolbar<br/>
+			<ul>
+			<li><a class="boldButton" href="#">Make bold</a></li>
+			<li><a class="italicButton" href="#">Make italic</a></li>
+			<li><a class="leftButton" href="#">Justify left</a></li>
+			<li><a class="rightButton" href="#">Justify right</a></li>
+			<li><a class="linkButton" href="#">Make link</a></li>
+			<li>
+				<select class="fontSelector">
+					<option value="">Default</option>
+					<option value="Courier">Courier</option>
+					<option value="Verdana">Verdana</option>
+					<option value="Georgia">Georgia</option>
+				</select>
+			</li>
+			</ul>
+			
+				<% if can? :update, @document %>
+			<%= link_to "Edit Document", edit_document_path %>
+		<% end %>
+		
+		</div>
+</div>

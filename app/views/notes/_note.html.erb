@@ -1,0 +1,12 @@
+<li>
+	<p><%= link_to note.content, note %></p>
+	
+	<% if can? :update, note %>
+		<%= link_to "Edit", edit_note_path(note.id), :class => "small" %>
+	<% end %>
+	<% if can? :destroy, note %>
+		| <%= link_to "Delete", note, :method => :delete, :confirm => "You sure?",
+	                               :title => "Delete #{note.content}",:class => "small delete"  %>
+	<% end %>
+
+</li>

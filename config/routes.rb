@@ -8,7 +8,10 @@ Documonk::Application.routes.draw do
   
   root :to => 'pages#home'
   
-  resources :documents
+  resources :documents do
+    resources :notes
+  end
+  resources :notes
   resources :users
   
   match '/new',  :to => 'documents#new'
