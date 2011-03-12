@@ -5,6 +5,7 @@
 
 <%= javascript_include_tag 'jquery-ui-1.8.10.custom.min' %>
 <%= javascript_include_tag 'jquery.hotkeys' %>
+<%= javascript_include_tag 'jquery.form' %>
 
 
 <%= javascript_include_tag 'jquery.tableofcontents' %>
@@ -17,3 +18,8 @@
 <div id="content">
 	<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
 </div>
+
+<%= form_for(@document) do |f| %>
+  <%#= render 'shared/error_messages', :object => f.object %>
+  <%= f.hidden_field :content %>
+<% end %>

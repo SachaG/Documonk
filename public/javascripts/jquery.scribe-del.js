@@ -50,8 +50,9 @@
 										["fontLink", "FontName"],
 										["helloLink", "insertHello"],
 										["codeLink", "wrapCode"],
-										["headerSelect", "wrapHeader","select"],
-										["saveLink","saveCommand"]
+										["h3Link", "wrapH3"],
+										["h4Link", "wrapH4"],
+										["headerSelect", "wrapHeader","select"]
 									]
             },
             args));
@@ -72,11 +73,11 @@
 				var className=value[0];
 				var commandName=value[1];
 				//check if there is a command type, if not use "link" by default
-				var inputType=(value.length>=3 ? value[2] : "link")
+				var commandType=(value.length>=3 ? value[2] : "link")
 
 				console.log("init toolbarCommands: "+commandName);
 
-				switch (inputType){
+				switch (commandType){
 					case "select":
 							$("."+className).change(function(){
 								$(this).scribe.doCommand(commandName);
@@ -113,9 +114,6 @@
 			var config = getConfig();
 
 			switch(command){
-				case "saveCommand":
-					//?????
-					break;
 				case "insertHello":
 					insertOrWrap("Hello world","");
 					break;
@@ -150,6 +148,9 @@
 						document.execCommand("createLink", false, url);
 					}
 					break;
+				case "fontName":
+					//var value=document.queryCommandValue();
+					//editDoc.execCommand(command, false, value); 
 				default:
 					console.log("doCommand: "+command);
 		    		document.execCommand(command, false, null); 
