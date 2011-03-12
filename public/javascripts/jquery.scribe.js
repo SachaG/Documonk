@@ -1,11 +1,14 @@
 // http://milan.adamovsky.com/2010/02/how-to-write-advanced-jquery-plugins.html
+
 (function($)
  {
     var config = {};
 
     var global = {
         selected: '',
-        selector: ''
+        selector: '',
+		undoStack: [],
+		logStack: []
     };
 
     var init = $.prototype.init;
@@ -43,8 +46,10 @@
 										["italicButton", "Italic"],
 										["leftButton", "JustifyLeft"],
 										["rightButton", "JustifyRight"],
-										["linkButton", "linkCommand"],
-										["fontSelector", "FontName"]
+										["linkButton", "wrapLink"],
+										["fontSelector", "FontName"],
+										["helloButton", "insertHello"],
+										["codeButton", "wrapCode"]
 									]
             },
             args));
@@ -52,10 +57,12 @@
 			// bind updateToolbar to keyup and mouseup events to refresh icon states (active/inactive)
 			var editable=$(global.selector);
 			editable.keyup(function(){
-				editable.scribe.updateToolbar()
+				editable.scribe.updateToolbar();
+				// if user types in text, unbind the custom undo function to use the browser's undo again
+				$(document).unbind('keydown', scribeUndo);
 			});
 			editable.mouseup(function(){
-				editable.scribe.updateToolbar()
+				editable.scribe.updateToolbar();
 			});
 			
 			// loop over the array and bind each commant to the click event of the element with a matching class
@@ -68,8 +75,6 @@
 					return false;
 				});
 			});
-			
-
 			
             return (getConfig());
         },
@@ -91,10 +96,16 @@
         },
 		doCommand: function(command) {
 			var config = getConfig();
-			switch(command){			
-				case "linkCommand":
+			switch(command){
+				case "insertHello":
+					insertOrWrap("Hello world","");
+					break;
+				case "wrapCode":
+					insertOrWrap("","code");
+					break;
+				case "wrapLink":
 					//get parent <a> tag closest to current selection
-					var closestTag=$(this).scribe.getClosest("a");
+					var closestTag=getClosest("a");
 					var initialUrl="http://";
 					// if there is a parent <a>, then use its link as the default for the new link
 					if(closestTag.length>0){
@@ -116,8 +127,7 @@
 		    		document.execCommand(command, false, null); 
 			}
 			// also update toolbar when command is executed in case of incompatible command (ex: justify right/left)
-			$(this).scribe.updateToolbar()
-			
+			$(this).scribe.updateToolbar();			
 		},
 		updateToolbar: function () { 
 			var config = getConfig();
@@ -127,20 +137,8 @@
 				var state = document.queryCommandState(commandName);
 				var button=$("."+className);
 				var echoState=state ? "active" : "inactive";
-				console.log(commandName+" state: "+echoState);
 				state ? button.addClass("active") : button.removeClass("active");
 			});
-		},
-		getClosest: function (tag) {
-			var selection = window.getSelection(); 
-			var node = selection.anchorNode.parentNode;
-			var closestTag = $(node).closest(tag);
-			if(closestTag.length>0){
-				console.log("Found closest <"+tag+"> at: "+closestTag);
-			}else{
-				console.log("Did not find any <"+tag+">");
-			}
-			return closestTag;
 		}
     };
 
@@ -153,4 +151,106 @@
     {
         return config;
     }
+
+	function getClosest(tag) {
+		var selection = window.getSelection(); 
+		var node = selection.anchorNode.parentNode;
+		var closestTag = $(node).closest(tag);
+		if(closestTag.length>0){
+			console.log("Found closest <"+tag+"> at: "+closestTag);
+		}else{
+			console.log("Did not find any <"+tag+">");
+		}
+		return closestTag;
+	}
+	
+	function insertOrWrap(myString,myTag){
+		//if no tag is supplied, use the span tag by default ; "true" is used to just do nothing
+		myTag==""?myTag="span":true;
+		var elem = document.createElement(myTag);
+		var jElem=$(elem);
+		var userSelection = document.getSelection();
+		var userSelectionString=String(userSelection);
+		var range=getRangeObject(userSelection);
+		var elemID = Math.round((new Date()).getTime() / 1000);
+		//if no string has been supplied, re-use the current selected text
+		if(myString==""){
+			//if no text is selected, throw an alert
+			if(userSelection==""){
+				alert("please select some text first");
+				return false;
+			}else{
+				myString=userSelectionString;
+			}
+		}
+		jElem.addClass('monk-elem monk-id-'+elemID+' monk-'+myTag);
+		//fill the element and append delete button
+		jElem.html(myString).append('<a class="monk-delete-elem" href="#" title="Delete Element">&#215;</a>');
+		range.deleteContents();
+		if (isTextNode(range.startContainer)) {
+			var refNode = rightPart(range.startContainer, range.startOffset)		
+			refNode.parentNode.insertBefore(elem, refNode);
+		} else {
+			if (range.startOffset==range.startContainer.childNodes.length) {
+				refNode.parentNode.appendChild(elem);
+			} else {
+				var refNode = range.startContainer.childNodes[range.startOffset];
+				refNode.parentNode.insertBefore(elem, refNode);
+			}
+		}
+		//activate the delete button
+		addElemDelete(jElem);
+		
+		//push action to undo stack
+		pushUndoStack(elemID, userSelectionString);	
+	}
+		
+	function isTextNode(node) {
+		return node.nodeType==3;
+	}
+	
+	function rightPart(node, ix) {
+	return node.splitText(ix);
+	}
+	
+	function leftPart(node, ix) {
+		node.splitText(ix);
+		return node;
+	}
+	
+	function addElemDelete(elem){
+		elem.find(".monk-delete-elem").click(function(){
+			$(this).parent().remove();
+		});
+	}
+	
+	function getRangeObject(selectionObject) {
+		if (selectionObject.getRangeAt)
+			return selectionObject.getRangeAt(0);
+		else { // Safari!
+			var range = document.createRange();
+			range.setStart(selectionObject.anchorNode,selectionObject.anchorOffset);
+			range.setEnd(selectionObject.focusNode,selectionObject.focusOffset);
+			return range;
+		}
+	}
+	
+	function pushUndoStack(elemID, previousContent){
+		var latestEvent=new Array();
+		latestEvent["elemID"]=elemID;
+		latestEvent["previousContent"]=previousContent;
+		global.undoStack.push(latestEvent);
+		global.logStack.push(latestEvent);
+		$(document).bind('keydown', 'ctrl+z', scribeUndo);
+		$(document).bind('keydown', 'meta+z', scribeUndo);
+
+	}
+	
+	function scribeUndo(){	
+		var latestEvent=global.undoStack[0];
+		$(".monk-id-"+latestEvent["elemID"]).replaceWith(latestEvent["previousContent"]);
+		global.undoStack.pop();
+		$(document).unbind('keydown', scribeUndo);
+		return false;		
+	}
 })(jQuery);
