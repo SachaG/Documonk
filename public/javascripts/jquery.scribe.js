@@ -51,7 +51,7 @@
 										["helloLink", "insertHello"],
 										["codeLink", "wrapCode"],
 										["headerSelect", "wrapHeader","select"],
-										["saveLink","saveCommand"]
+										["save-button","saveCommand"]
 									]
             },
             args));
