@@ -1,53 +1,78 @@
 <div id="palette">
-		<ul>
-			<li><a href="#info">Info</a></li>
-			<li><a href="#toc">T.O.C.</a></li>
-			<% if can? :update, @document %>
-				<li><a class="edit-link" href="#edit">Edit</a></li>
+		<div class="top-bar">
+			<a class="minimize button icon-button"><span>Minimize</span></a>
+		</div>
+		<div class="contents">
+			<ul class="navigation">
+				<li class="info first"><a href="#info"><span>Info</span></a></li>
+				<li class="toc"><a href="#toc"><span>T.O.C.</span></a></li>
+				<li class="profile"><a href="#profile"><span>Profile</span></a></li>
+				<li class="download"><a href="#download"><span>Download</span></a></li>
+	
+				<li class="edit last"><a class="edit-link" href="#edit"><span>Edit</span></a></li>
+				<li class="fill"></li>
+			</ul>
+			<div id="info">
+				<%= link_to "Download PDF", document_path(@document, :format => "pdf") %><br/>
+				<%= link_to "View Notes", document_notes_url(@document)%>
+				<%= link_to "Add Note", new_document_note_url(@document)%>
+			</div>
+			<div id="toc">
+				<h3><%= @document.title %></h3>
+				<ol id="toc-inner"></ol>
+			</div>
+			<div id="edit">
+				Now editing…<br/>
+				<ul>
+				<li><a class="saveLink" href="#">Save</a></li>
+				<li><a class="start-link" href="#">Start editing</a></li>
+				<li><a class="finish-link" href="#">Done editing</a></li>
+				</ul>
+			
+				Toolbar<br/>
+				<ul>
+				<li><a class="boldLink" href="#">Make bold</a></li>
+				<li><a class="italicLink" href="#">Make italic</a></li>
+				<li><a class="leftLink" href="#">Justify left</a></li>
+				<li><a class="rightLink" href="#">Justify right</a></li>
+				<li><a class="linkLink" href="#">Make link</a></li>
+				<li><a class="helloLink" href="#">Insert hello</a></li>
+				<li><a class="codeLink" href="#">Wrap with code</a></li>
+				<li><a class="h3Link" href="#">h3</a></li>
+				<li><a class="h4Link" href="#">h4</a></li>
+				<li>
+					<select class="headerSelect">
+						<option value="p">Paragraph</option>
+						<option value="h2">H2</option>
+						<option value="h3">H3</option>
+						<option value="h4">H4</option>
+						<option value="h4">H5</option>
+					</select>
+				</li>
+				</ul>
+			
+					<% if can? :update, @document %>
+				<%= link_to "Edit Document", edit_document_path %>
 			<% end %>
-		</ul>
-		<div id="info">
-			<%= link_to "Download PDF", document_path(@document, :format => "pdf") %><br/>
-			<%= link_to "View Notes", document_notes_url(@document)%>
-			<%= link_to "Add Note", new_document_note_url(@document)%>
-		</div>
-		<div id="toc">
-			<h3><%= @document.title %></h3>
-			<ol id="toc-inner"></ol>
-		</div>
-		<div id="edit">
-			Now editing…<br/>
-			<ul>
-			<li><a class="saveLink" href="#">Save</a></li>
-			<li><a class="start-link" href="#">Start editing</a></li>
-			<li><a class="finish-link" href="#">Done editing</a></li>
-			</ul>
-			
-			Toolbar<br/>
-			<ul>
-			<li><a class="boldLink" href="#">Make bold</a></li>
-			<li><a class="italicLink" href="#">Make italic</a></li>
-			<li><a class="leftLink" href="#">Justify left</a></li>
-			<li><a class="rightLink" href="#">Justify right</a></li>
-			<li><a class="linkLink" href="#">Make link</a></li>
-			<li><a class="helloLink" href="#">Insert hello</a></li>
-			<li><a class="codeLink" href="#">Wrap with code</a></li>
-			<li><a class="h3Link" href="#">h3</a></li>
-			<li><a class="h4Link" href="#">h4</a></li>
-			<li>
-				<select class="headerSelect">
-					<option value="p">Paragraph</option>
-					<option value="h2">H2</option>
-					<option value="h3">H3</option>
-					<option value="h4">H4</option>
-					<option value="h4">H5</option>
-				</select>
-			</li>
-			</ul>
-			
-				<% if can? :update, @document %>
-			<%= link_to "Edit Document", edit_document_path %>
-		<% end %>
 		
+			</div>
+			<div id="profile">
+		<% if user_signed_in? %>
+			<span class="small">Signed in as <%= link_to current_user.email, current_user %> (<%= current_user.role! %>)</span> |
+		<% end %>
+		<%= link_to "All Documents", documents_path %> |
+		<% if user_signed_in? %>	 		
+	 		<%= link_to "New Document", new_document_path %> |
+			<% if current_user.role? :admin %>
+				<%= link_to "Users", users_path %> |
+			<% end %>
+			<%= link_to "Sign Out", destroy_user_session_path %>
+	  	<% else %>
+	 		<%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign In", new_user_session_path %>
+		<% end %>
+			</div>
+			<div id="download">
+				download
+			</div>
 		</div>
 </div>

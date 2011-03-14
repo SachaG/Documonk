@@ -13,21 +13,7 @@
 <div id="container">
 <div id="header">
 	<div id="logo"><%= link_to "Home", root_path %></div>		
-	<div id="nav">
-		<% if user_signed_in? %>
-			<span class="small">Signed in as <%= link_to current_user.email, current_user %> (<%= current_user.role! %>)</span> |
-		<% end %>
-		<%= link_to "All Documents", documents_path %> |
-		<% if user_signed_in? %>	 		
-	 		<%= link_to "New Document", new_document_path %> |
-			<% if current_user.role? :admin %>
-				<%= link_to "Users", users_path %> |
-			<% end %>
-			<%= link_to "Sign Out", destroy_user_session_path %>
-	  	<% else %>
-	 		<%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign In", new_user_session_path %>
-		<% end %>
-	</div>
+
 </div>
 	
 <div class="page">

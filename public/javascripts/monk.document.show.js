@@ -6,9 +6,22 @@ $().ready(function() {
 		startLevel: 2
 	});
 	
-	$("#palette").tabs({ 
+	$("#palette .contents").tabs({ 
 		//collapsible: true
 	});
+	
+	$("#palette .icon-button").click(function(){
+		var button=$(this);
+		if(button.hasClass("minimize")){
+				button.removeClass("minimize").addClass("maximize");
+				$("#palette").removeClass("maximized").addClass("minimized");	
+		}else{
+				button.removeClass("maximize").addClass("minimize");
+				$("#palette").removeClass("minimized").addClass("maximized");	
+		}
+
+	});
+	
 	$('.edit_document').ajaxForm();
 	
     var options = { 
