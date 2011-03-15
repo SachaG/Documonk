@@ -23,6 +23,7 @@ $().ready(function() {
 	
 	$("#edit-switch").click(function(){
 		var editSwitch=$(this);
+		var pTabs=$('#palette .contents');
 		$("#palette").toggleClass("editing");
 		$("#palette").toggleClass("not-editing");
 		$("#content").toggleClass("editing");
@@ -30,11 +31,15 @@ $().ready(function() {
 		if(editSwitch.hasClass("inactive-switch")){
 				$("#edit-switch").removeClass("inactive-switch").addClass("active-switch");
 				$('#content').scribe.startEditing();
-				$('#palette .contents').tabs("option","disabled",[]);
+				pTabs.tabs("option","disabled",[]);
 		}else{
 				$("#edit-switch").removeClass("active-switch").addClass("inactive-switch");
 				$('#content').scribe.stopEditing();
 				$('#palette .contents').tabs("option","disabled",[2,3]);
+				var selectedTabs=pTabs.tabs( "option" , selected);
+				if(selectedTabs==3 || selectedTabs==4){
+					$('#palette .contents').tabs( "select" , 0 );
+				}
 		}		
 	});
 	//$("#edit-switch").buttonset();
