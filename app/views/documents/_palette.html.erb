@@ -1,34 +1,43 @@
-<div id="palette">
+<div id="palette" class="not-editing">
 		<div class="top-bar">
-			<!--
-			<span id="edit-switch">
-				<input type="radio" id="view" name="switch" checked="checked" /><label for="view">View</label>
-				<input type="radio" id="edit" name="switch" /><label for="edit">Edit</label>
-			</span>
-			-->
-			<span id="edit-switch" class="switch inactive-switch">
-				<span class="indicator button"></span>
-				<a href='#' class="off">View</a>
-				<a href="#" class="on last">Edit</a>
-			</span>
-			<a class="minimize button icon-button"><span>Minimize</span></a>
+			<% if user_signed_in? %>
+				 <a href="/users/sign_out" class="logout button icon-button"><span>Log Out</span></a>
+			<% else %>
+				 <a href="/users/sign_in" class="login button icon-button"><span>Log In</span></a>
+			<% end %>
+			<% if can? :update, @document %>
+				<span id="edit-switch" class="switch inactive-switch">
+					<span class="indicator button"></span>
+					<a href='#' class="off">View</a>
+					<a href="#" class="on last">Edit</a>
+				</span>
+			<% end %>
+			<a class="minmax minimize button icon-button"><span>Minimize</span></a>
 		</div>
-		<div class="edit-options">
-			<div class="save">
-				<a href="#" class="button save-button"><span>Save</span></a>
-				<span class="loader"></span>
-				<span class="success-indicator"></span>
-				<span class="error-indicator"></span>
+		<% if can? :update, @document %>
+			<div class="edit-options">
+				<div class="save">
+					<a href="#" class="button save-button"><span>Save</span></a>
+					<span class="loader"></span>
+					<span class="success-indicator"></span>
+					<span class="error-indicator"></span>
+				</div>
 			</div>
-		</div>
+		<% end %>
 		<div class="contents">
 			<ul class="navigation">
 				<li class="info first"><a href="#info"><span>Info</span></a></li>
 				<li class="toc"><a href="#toc"><span>T.O.C.</span></a></li>
+				<% if can? :update, @document %>
+					<li class="edit-only typography"><a href="#typography"><span>Typography</span></a></li>
+					<li class="edit-only settings"><a href="#settings"><span>Settings</span></a></li>
+				<% end %>
+				<!--
 				<li class="profile"><a href="#profile"><span>Profile</span></a></li>
 				<li class="download"><a href="#download"><span>Download</span></a></li>
 	
 				<li class="edit last"><a class="edit-link" href="#edit"><span>Edit</span></a></li>
+				-->
 				<li class="fill"></li>
 			</ul>
 			<div id="info">
@@ -40,7 +49,8 @@
 				<h3><%= @document.title %></h3>
 				<ol id="toc-inner"></ol>
 			</div>
-			<div id="edit">
+			<% if can? :update, @document %>
+			<div id="typography">
 				Now editing…<br/>
 				<ul>
 				<li><a class="saveLink" href="#">Save</a></li>
@@ -75,7 +85,7 @@
 			<% end %>
 		
 			</div>
-			<div id="profile">
+			<div id="settings">
 		<% if user_signed_in? %>
 			<span class="small">Signed in as <%= link_to current_user.email, current_user %> (<%= current_user.role! %>)</span> |
 		<% end %>
@@ -90,8 +100,6 @@
 	 		<%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign In", new_user_session_path %>
 		<% end %>
 			</div>
-			<div id="download">
-				download
-			</div>
+		<% end %>
 		</div>
 </div>

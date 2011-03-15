@@ -3,14 +3,14 @@ $().ready(function() {
 	//must call TOC after Aloha, else bug!	
 
 	$("#toc-inner").tableOfContents("#content", {
-		startLevel: 2
+		startLevel: 	2
 	});
 	
 	$("#palette .contents").tabs({ 
-		//collapsible: true
+		disabled: 		[2,3]
 	});
 	
-	$("#palette .icon-button").click(function(){
+	$("#palette .minmax").click(function(){
 		var button=$(this);
 		if(button.hasClass("minimize")){
 				button.removeClass("minimize").addClass("maximize");
@@ -24,13 +24,17 @@ $().ready(function() {
 	$("#edit-switch").click(function(){
 		var editSwitch=$(this);
 		$("#palette").toggleClass("editing");
+		$("#palette").toggleClass("not-editing");
 		$("#content").toggleClass("editing");
+		$("#content").toggleClass("not-editing");
 		if(editSwitch.hasClass("inactive-switch")){
 				$("#edit-switch").removeClass("inactive-switch").addClass("active-switch");
 				$('#content').scribe.startEditing();
+				$('#palette .contents').tabs("option","disabled",[]);
 		}else{
 				$("#edit-switch").removeClass("active-switch").addClass("inactive-switch");
 				$('#content').scribe.stopEditing();
+				$('#palette .contents').tabs("option","disabled",[2,3]);
 		}		
 	});
 	//$("#edit-switch").buttonset();
