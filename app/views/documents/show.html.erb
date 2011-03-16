@@ -3,23 +3,29 @@
 <%#= render 'documents/aloha' %>
 <%= render 'documents/custom' %>
 
+
 <%= javascript_include_tag 'jquery-ui-1.8.10.custom.min' %>
 <%= javascript_include_tag 'jquery.hotkeys' %>
 <%= javascript_include_tag 'jquery.form' %>
-
+<%= javascript_include_tag 'autoresize.jquery.min' %>
 
 <%= javascript_include_tag 'jquery.tableofcontents' %>
 <%= javascript_include_tag 'monk.document.show' %>
+<%= javascript_include_tag 'fancybox/jquery.fancybox-1.3.4.pack' %>
 
 <%= render 'documents/palette' %>
 
 <h1><%= @document.title %></h1>
 
-<div id="content">
-	<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
+<div id="content" class="show-wysiwyg">
+	<div id="wysiwyg">
+		<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
+	</div>
+	<div id="source">
+		<%= form_for(@document) do |f| %>
+		  	<%= f.hidden_field :title %>
+  			<%#= render 'shared/error_messages', :object => f.object %>
+  			<%= f.text_area :content %>
+		<% end %>
+	</div>
 </div>
-
-<%= form_for(@document) do |f| %>
-  <%#= render 'shared/error_messages', :object => f.object %>
-  <%= f.hidden_field :content %>
-<% end %>

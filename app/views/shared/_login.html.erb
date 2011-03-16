@@ -1,47 +1,54 @@
-<div id="login">
-	<div class="sign-in">
-	<h2>Sign In</h2>
-	<p>Sign in to manage and edit your documents.</p>
-<%= form_for resource_name, resource, :url => session_path(resource_name) do |f| -%>
-  <%#= devise_error_messages! %>
+<div class="dialogs">
+	<div id="login" class="dialog">
+		<div class="sign-in">
+		<h2>Sign In</h2>
+		<p>Sign in to manage and edit your documents.</p>
+	<%= form_for resource_name, resource, :url => session_path(resource_name) do |f| -%>
+	  <%#= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+	  <p><%= f.label :email %><br />
+	  <%= f.text_field :email %></p>
 
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+	  <p><%= f.label :password %><br />
+	  <%= f.password_field :password %></p>
 
-<%= f.hidden_field :remember_me %>
+	<%= f.hidden_field :remember_me %>
+			  <p class="small"><a href="/users/password/new" title="I forgot my password">I forgot my password!</a></p>
 
-  <p><%= f.submit "Sign in" %></p>
-<% end %>
+	<input type="hidden" id="redirect_to" name="redirect_to" value="<%= request.url %>" />
 
-<%#= render :partial => "devise/shared/links" %>
+	  <p><%= f.submit "Sign in" %></p>
+	
+
+	<% end %>
+
+	<%#= render :partial => "devise/shared/links" %>
+		</div>
+
+		<div class="sign-up">
+		<h4>Don't have an account?</h4>
+		<p>Signing up is free and only takes 30 seconds.</p>
+	<%= form_for resource_name, resource, :url => registration_path(resource_name) do |f| -%>
+	  <%#= devise_error_messages! %>
+
+	  <p><%= f.label :email %><br />
+	  <%= f.text_field :email %></p>
+
+	  <p><%= f.label :password %><br />
+	  <%= f.password_field :password %></p>
+
+	  <p><%= f.label :password_confirmation %><br />
+	  <%= f.password_field :password_confirmation %></p>
+
+	  <p><%= f.submit "Sign up" %></p>
+	<% end %>
+
+	<%#= render :partial => "devise/shared/links" %>
+
+		</div>
 	</div>
-	<div class="or">
-	</div>
-	<div class="sign-up">
-	<h2>Sign Up</h2>
-	<p>Don't have an account? Signing up is free and only takes 30 seconds.</p>
-<%= form_for resource_name, resource, :url => registration_path(resource_name) do |f| -%>
-  <%#= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
-
-  <p><%= f.label :twitteraccount %><br />
-  <%= f.text_field :twitteraccount %></p>
-
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.submit "Sign up" %></p>
-<% end %>
-
-<%#= render :partial => "devise/shared/links" %>
-
+	<div id="logout" class="dialog">
+		<a href="/users/sign_out?next=<%= request.url %>">Log Out</a>
 	</div>
 </div>

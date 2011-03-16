@@ -2,12 +2,60 @@ $().ready(function() {
 
 	//must call TOC after Aloha, else bug!	
 
-	$("#toc-inner").tableOfContents("#content", {
-		startLevel: 	2
-	});
+	function initTOC(){
+		$("#toc-inner").empty();
+		$("#toc-inner").tableOfContents("#wysiwyg", {
+			startLevel: 	2
+		});	
+	}
+	initTOC();
+	$(".toc a").click(initTOC);
 	
 	$("#palette .contents").tabs({ 
 		disabled: 		[2,3]
+		,selected: 		0 
+	});
+	
+	/*
+	$("#login").dialog({
+		autoOpen: 	false
+		,modal: 	true
+		,draggable: false		
+	});
+	
+	$(".login").click(function(){
+		$("#login").dialog('open')
+		return false;
+	});
+
+	$("#logout").dialog({
+		autoOpen: 	false
+		,modal: 	true
+		,draggable: false	
+	});
+	
+	$(".logout").click(function(){
+		$("#logout").dialog('open')
+		return false;
+	});
+	*/
+	$(".login").fancybox({
+		hideOnOverlayClick: 	true
+		,padding: 				0
+		,overlayOpacity: 		0.7
+		,overlayColor: 			"#000000"
+		,showCloseButton: 		true
+		,href: 					"#login"
+
+	});
+		
+	$(".logout").fancybox({
+		hideOnOverlayClick: 	true
+		,padding: 				20
+		,overlayOpacity: 		0.7
+		,overlayColor: 			"#000000"
+		,showCloseButton: 		true
+		,href: 					"#logout"
 	});
 	
 	$("#palette .minmax").click(function(){
@@ -21,28 +69,70 @@ $().ready(function() {
 		}
 	});
 	
-	$("#edit-switch").click(function(){
-		var editSwitch=$(this);
+	$("#edit-switch").click(switchEditMode);
+	
+	function switchEditMode(){
+		var editSwitch=$("#edit-switch");
 		var pTabs=$('#palette .contents');
-		$("#palette").toggleClass("editing");
-		$("#palette").toggleClass("not-editing");
-		$("#content").toggleClass("editing");
-		$("#content").toggleClass("not-editing");
+		$("#palette, #wysiwyg").toggleClass("editing not-editing");
 		if(editSwitch.hasClass("inactive-switch")){
 				$("#edit-switch").removeClass("inactive-switch").addClass("active-switch");
-				$('#content').scribe.startEditing();
+				$('#wysiwyg').scribe.startEditing();
 				pTabs.tabs("option","disabled",[]);
+				$(document).bind('keydown', 'meta+s', saveDocument);
+				$("h1").addClass("editing").attr('contentEditable', true);
 		}else{
 				$("#edit-switch").removeClass("active-switch").addClass("inactive-switch");
-				$('#content').scribe.stopEditing();
-				$('#palette .contents').tabs("option","disabled",[2,3]);
-				var selectedTabs=pTabs.tabs( "option" , selected);
-				if(selectedTabs==3 || selectedTabs==4){
+				$('#wysiwyg').scribe.stopEditing();
+				var selectedTab=$(".ui-tabs-selected").index(".navigation>li");
+				if(selectedTab==2 || selectedTab==3){
 					$('#palette .contents').tabs( "select" , 0 );
 				}
-		}		
+				pTabs.tabs("option","disabled",[2,3]);
+				$(document).unbind('keydown', saveDocument);
+				if($("#content").hasClass("show-source")){
+					switchSource();
+				}
+				$("h1").removeClass("editing").attr('contentEditable', false);
+
+		}
+		return false;		
+	}
+	
+	
+	$("#source-switch").click(switchSource);
+	
+	function switchSource(){
+		var sourceSwitch=$("#source-switch");
+		$("#content").toggleClass("show-source show-wysiwyg");
+		if(sourceSwitch.hasClass("inactive-switch")){
+				sourceSwitch.removeClass("inactive-switch").addClass("active-switch");
+				$("#document_content").val($.trim($("#wysiwyg").html()));
+		}else{
+				sourceSwitch.removeClass("active-switch").addClass("inactive-switch");
+				$("#wysiwyg").html($("#document_content").val());
+		}
+		$('#source textarea').keydown();
+		return false;	
+	};
+	
+	$('#source textarea').autoResize({
+	    // On resize:
+	    onResize : function() {
+	        $(this).css({opacity:0.8});
+	    },
+	    // After resize:
+	    animateCallback : function() {
+	        $(this).css({opacity:1});
+	    },
+	    // Quite slow animation:
+	    animateDuration : 100,
+	    // More extra space:
+	    extraSpace : 60,
+		limit: 100000000
 	});
-	//$("#edit-switch").buttonset();
+
+
 	
 	$('.edit_document').ajaxForm();
 	
@@ -61,12 +151,20 @@ $().ready(function() {
         // $.ajax options can be used here too, for example: 
         //timeout:   3000 
     }; 
-
+	
 	$(".save-button").click(function(){
-		$("#document_content").val($("#content").html());
-		$('.edit_document').ajaxSubmit(options);
+		saveDocument();
 		return false;
 	});
+	
+	function saveDocument(){
+		if($("#content").hasClass("show-wysiwyg")){
+			$("#document_content").val($.trim($("#wysiwyg").html()));
+		}
+		$("#document_title").val($.trim($("h1").text()));
+		$('.edit_document').ajaxSubmit(options);
+		return false;	
+	}
 	function beforeCall(){
 		$(".save").addClass("saving");
 		$(".error-indicator").hide();

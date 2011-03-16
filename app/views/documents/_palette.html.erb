@@ -6,21 +6,26 @@
 				 <a href="/users/sign_in" class="login button icon-button"><span>Log In</span></a>
 			<% end %>
 			<% if can? :update, @document %>
-				<span id="edit-switch" class="switch inactive-switch">
+				<a href='#' id="edit-switch" class="switch inactive-switch">
 					<span class="indicator button"></span>
-					<a href='#' class="off">View</a>
-					<a href="#" class="on last">Edit</a>
-				</span>
+					<span class="option off">View</span>
+					<span class="option on last">Edit</span>
+				</a>
 			<% end %>
 			<a class="minmax minimize button icon-button"><span>Minimize</span></a>
 		</div>
 		<% if can? :update, @document %>
 			<div class="edit-options">
+				<a href='#' id="source-switch" class="switch inactive-switch">
+					<span class="indicator button"></span>
+					<span class="option off">Text</span>
+					<span class="option on last">Code</span>
+				</a>
 				<div class="save">
-					<a href="#" class="button save-button"><span>Save</span></a>
 					<span class="loader"></span>
 					<span class="success-indicator"></span>
 					<span class="error-indicator"></span>
+					<a href="#" class="button save-button"><span>Save</span></a>
 				</div>
 			</div>
 		<% end %>
@@ -46,7 +51,9 @@
 				<%= link_to "Add Note", new_document_note_url(@document)%>
 			</div>
 			<div id="toc">
-				<h3><%= @document.title %></h3>
+				<!--
+				<h4><%= @document.title %></h4>
+				-->
 				<ol id="toc-inner"></ol>
 			</div>
 			<% if can? :update, @document %>
