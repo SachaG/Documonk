@@ -13,7 +13,7 @@
 	  <%= f.password_field :password %></p>
 
 	<%= f.hidden_field :remember_me %>
-			  <p class="small"><a href="/users/password/new" title="I forgot my password">I forgot my password!</a></p>
+	<p class="small"><a href="/users/password/new" title="I forgot my password">I forgot my password!</a></p>
 
 	<input type="hidden" id="redirect_to" name="redirect_to" value="<%= request.url %>" />
 
@@ -40,6 +40,8 @@
 	  <p><%= f.label :password_confirmation %><br />
 	  <%= f.password_field :password_confirmation %></p>
 
+	<input type="hidden" id="redirect_to" name="redirect_to" value="<%= new_document_path %>" />
+
 	  <p><%= f.submit "Sign up" %></p>
 	<% end %>
 
@@ -49,6 +51,6 @@
 	</div>
 
 	<div id="logout" class="dialog">
-		<a href="/users/sign_out?next=<%= request.url %>">Log Out</a>
+		<a href="/users/sign_out?redirect_to=<%= request.url %>">Log Out</a>
 	</div>
 </div>

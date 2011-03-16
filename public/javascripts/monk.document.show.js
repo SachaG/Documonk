@@ -1,7 +1,7 @@
 $().ready(function() {
-
-	//must call TOC after Aloha, else bug!	
-
+	
+	
+	
 	function initTOC(){
 		$("#toc-inner").empty();
 		$("#toc-inner").tableOfContents("#wysiwyg", {
@@ -9,6 +9,7 @@ $().ready(function() {
 		});	
 	}
 	initTOC();
+	
 	$(".toc a").click(initTOC);
 	
 	$("#palette .contents").tabs({ 
@@ -18,32 +19,9 @@ $().ready(function() {
 				switchEditMode();
 			}
 		}
-
 	});
-	
-	/*
-	$("#login").dialog({
-		autoOpen: 	false
-		,modal: 	true
-		,draggable: false		
-	});
-	
-	$(".login").click(function(){
-		$("#login").dialog('open')
-		return false;
-	});
-
-	$("#logout").dialog({
-		autoOpen: 	false
-		,modal: 	true
-		,draggable: false	
-	});
-	
-	$(".logout").click(function(){
-		$("#logout").dialog('open')
-		return false;
-	});
-	*/
+	$('a[href="/users/sign_up"]').addClass("login");
+	$('a[href="/users/sign_in"]').addClass("login");
 	$(".login").fancybox({
 		hideOnOverlayClick: 	true
 		,padding: 				0
@@ -51,7 +29,6 @@ $().ready(function() {
 		,overlayColor: 			"#000000"
 		,showCloseButton: 		true
 		,href: 					"#login"
-
 	});
 		
 	$(".logout").fancybox({

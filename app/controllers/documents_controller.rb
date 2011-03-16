@@ -11,7 +11,9 @@ class DocumentsController < ApplicationController
 
   def new
     @title = "Create new document"
-    @document = Document.new
+    @document = current_user.documents.build(:title => 'New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!')
+    #@document = Document.new :user => current_user, :title => 'New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!'  
+    render :action => 'show'
   end
   
   def create
@@ -48,4 +50,6 @@ class DocumentsController < ApplicationController
     flash[:success] = "Document destroyed."
     redirect_to documents_path
   end
+
+ 
 end

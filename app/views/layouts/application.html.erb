@@ -17,22 +17,28 @@
 <body>
 	<!-- layouts/application.html.erb -->
 <div id="container">
-<div id="header">
-	<div id="logo"><%= link_to "Home", root_path %></div>		
+	<div id="header">
+		<div id="logo"><%= link_to "Home", root_path %></div>		
 
-</div>
-	
-<div class="page">
-
-<% flash.each do |key, value| %>
-     <div class="flash <%= key %>"><%= value %></div>
-<% end %>
-
+	</div>
+	<div class="page">
+		<% flash.each do |key, value| %>
+		     <div class="flash <%= key %>"><%= value %></div>
+		<% end %>
 		<%= yield %>
+		</div>
+	<div class="footer">
+		<ul>
+			<li>Designed and coded by <a href="http://www.sachagreif.com">Sacha Greif</a></li>
+			<li><a href="https://getsatisfaction.com/documonk">Support</a></li>
+			<li><a href="http://twitter.com/SachaGreif">Twitter</a></li>
+			<li><a href="http://documonk.posterous.com">Blog</a></li>
+		</ul>
+	</div>
+</div>
 
-</div>
+
       <%= debug(params) if Rails.env.development? %>
-</div>
 
    <%= render 'shared/login' %>
 

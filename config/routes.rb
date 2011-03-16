@@ -6,7 +6,9 @@ Documonk::Application.routes.draw do
   #devise_for :users, :path_names => {:sign_up => "register"}
   devise_for :users
   
-  root :to => 'documents#new'
+  #root :to => 'documents#new'
+  #root :to => 'pages#home'
+  root :to => 'documents#show', :id =>1
   
   resources :documents do
     resources :notes

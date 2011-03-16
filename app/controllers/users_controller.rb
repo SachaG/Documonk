@@ -43,10 +43,7 @@ class UsersController < ApplicationController
     @roles = Role.find(:all)
   end
 
-  def after_sign_in_path_for(resource)
-    params[:next] || super
-  end
- 
+
   private
     
     def set_user
