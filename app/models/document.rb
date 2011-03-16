@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-    attr_accessible :title, :content
+    attr_accessible :title, :content, :stats_code, :public
 
     belongs_to :user
     has_many :notes

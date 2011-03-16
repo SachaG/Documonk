@@ -88,19 +88,31 @@
 				  <%= render 'shared/error_messages', :object => f.object %>
 				  <div class="field">
 					<h4>Google Analytics</h4>
-					<p class="small">Enter your Google Analytics tracking code here to enable analytics.</p>
 				    <%= f.text_field :stats_code %>
+									<p class="small description">Enter your Google Analytics tracking code here to enable analytics (something like "UA-1234567-89").</p>
+
 				  </div>
 				  <div class="field">
 					<h4>Make document private?</h4>
-					<p class="small">Choose "private" if you want your document to only be accessible via its URL</p>
-					<%= f.label :public, "Public" %>
-				    <%= f.radio_button :public, true %><br />
-					<%= f.label :public, "Private" %>
-					<%= f.radio_button :public, false %>
+					<p>
+					<span class="public">
+						<%= f.label :public_true, "Public" %>
+				    	<%= f.radio_button :public, true %>
+					</span>
+					<span class="private">
+						<%= f.label :public_false, "Private" %>
+						<%= f.radio_button :public, false %>
+					</span>
+					</p>
+										<p class="small description">Choose "private" if you don't want your document to appear in public listings</p>
+
 				  </div>
-				  <div class="actions">
-				    <%= f.submit "Submit" %>
+				  <div class="actions save">
+				    <%#= f.submit "Submit" %>
+					<input id="settings_submit" name="commit" type="submit" value="Submit">
+					<span class="loader"></span>
+					<span class="success-indicator"></span>
+					<span class="error-indicator"></span>
 				  </div>
 				<% end %>
 

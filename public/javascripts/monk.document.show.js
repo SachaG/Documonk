@@ -139,7 +139,8 @@ $().ready(function() {
 
 
 	
-	$('.edit_document').ajaxForm();
+	$('#source form').ajaxForm();
+	$('#settings form').ajaxForm();
 	
     var options = { 
         //target:        '#confirmation',   // target element(s) to be updated with server response 
@@ -161,25 +162,30 @@ $().ready(function() {
 		saveDocument();
 		return false;
 	});
-	
+
+	$("#settings_submit").click(function(){
+		$('#settings form').ajaxSubmit(options);	
+		return false;
+	});
+		
 	function saveDocument(){
 		if($("#content").hasClass("show-wysiwyg")){
 			$("#document_content").val($.trim($("#wysiwyg").html()));
 		}
 		$("#document_title").val($.trim($("h1").text()));
-		$('.edit_document').ajaxSubmit(options);
+		$('#source form').ajaxSubmit(options);
 		return false;	
 	}
-	function beforeCall(){
-		$(".save").addClass("saving");
-		$(".error-indicator").hide();
+	function beforeCall(arr, $form, options){
+		$(".save", $form).addClass("saving");
+		$(".error-indicator", $form).hide();
 	}
-	function successCall(){
-		$(".save").removeClass("saving");
-		$(".success-indicator").show().fadeOut("slow");
+	function successCall(responseText, statusText, xhr, $form){
+		$(".save", $form).removeClass("saving");
+		$(".success-indicator", $form).show().fadeOut("slow");
 	}
 	function errorCall(){
-		$(".save").removeClass("saving");
-		$(".error-indicator").show();
+		$(".save", $form).removeClass("saving");
+		$(".error-indicator", $form).show();
 	}
 });

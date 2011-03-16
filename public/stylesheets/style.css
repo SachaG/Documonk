@@ -1,10 +1,9 @@
-	@import url('blueprint/screen.css');
-
-
+@import url('blueprint/screen.css');
 
 body{
 	background:url("../images/bg.png");
 	font-size:14px;
+	font-family:"Helvetica Neue", "Helvetica", Arial, sans-serif;
 }
 strong{
 	font-weight:bold !important;
@@ -270,7 +269,7 @@ h1{
 .edit-options .save{
 	float:right;
 }
-.save-button{
+.edit-options .save-button{
 	display:block;
 	float:right;
 }
@@ -279,7 +278,7 @@ h1{
 }
 .loader, .success-indicator, .error-indicator{
 	right:0px;
-	display:block;
+	display:inline-block;
 	float:left;
 	background:url("../images/loader.gif");
 	height:16px;
@@ -490,6 +489,7 @@ h1{
 #palette h4{
 	font-size:12px;
 	font-weight:bold;
+	margin-bottom:5px;
 }
 #toc-inner{
 	font-size:12px;
@@ -497,9 +497,41 @@ h1{
 #toc-inner li{
 	margin-bottom:8px;
 }
-.field input{
+#palette .content p{
+	margin-bottom:7px;
+	line-height:1.5;
+}
+#palette .content p.description{
+	color:#777;
+}
+#palette .field{
+	-webkit-box-shadow: 	inset 0px -1px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 		inset 0px -1px 0px rgba(0,0,0,0.1);
+	box-shadow: 			inset 0px -1px 0px rgba(0,0,0,0.1);
+	border-bottom:1px #fff solid;
+	padding-bottom:10px;
+	margin-bottom:10px;
+}
+#palette .content label{
+	font-size:11px;
+	display:inline;
+	font-weight:normal;
+}
+#palette .public{
+	display:inline-block;
+	margin-right:10px;
+}
+.field input[type=text]{
 	width:137px;
 }
+#palette .save{
+	overflow:hidden;
+}
+.save input{
+	float:left;
+	display:block;
+}
+
 /*----------------------------------------------------- ELEMENTS ----------------------------------------------------*/
 .monk-elem{
 	background:rgba(0,0,0,0.05);
