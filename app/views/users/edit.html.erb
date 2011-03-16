@@ -9,8 +9,8 @@
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :twitteraccount %><br />
-    <%= f.text_field :twitteraccount %>
+    <%= f.label :twitter_account %><br />
+    <%= f.text_field :twitter_account %>
   </div>
 	<% if current_user.role?(:admin) %>
 	  <div class="field">
@@ -31,6 +31,6 @@
 	  </div>
 	<% end %>
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Submit" %>
   </div>
 <% end %>

@@ -15,6 +15,7 @@ class Ability
        can :destroy, Document do |document|
          document.try(:user) == user
        end
+       can :update, User, :id => user.id
      end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

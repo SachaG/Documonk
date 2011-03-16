@@ -159,7 +159,7 @@ $().ready(function() {
     }; 
 	
 	$(".save-button").click(function(){
-		saveDocument();
+		saveDocument();	
 		return false;
 	});
 
@@ -177,15 +177,21 @@ $().ready(function() {
 		return false;	
 	}
 	function beforeCall(arr, $form, options){
-		$(".save", $form).addClass("saving");
-		$(".error-indicator", $form).hide();
+		//if this is the main content form, then look for the save button in the palette
+		$form.is("#source form") ? context=$("#palette") : context=$form;
+		$(".save", context).addClass("saving");
+		$(".error-indicator", context).hide();
 	}
 	function successCall(responseText, statusText, xhr, $form){
-		$(".save", $form).removeClass("saving");
-		$(".success-indicator", $form).show().fadeOut("slow");
+		//if this is the main content form, then look for the save button in the palette
+		$form.is("#source form") ? context=$("#palette") : context=$form;
+		$(".save", context).removeClass("saving");
+		$(".success-indicator", context).show().fadeOut("slow");
 	}
 	function errorCall(){
-		$(".save", $form).removeClass("saving");
-		$(".error-indicator", $form).show();
+		//if this is the main content form, then look for the save button in the palette
+		$form.is("#source form") ? context=$("#palette") : context=$form;
+		$(".save", context).removeClass("saving");
+		$(".error-indicator", context).show();
 	}
 });
