@@ -18,7 +18,7 @@
 <h1><%= @document.title %></h1>
 
 <div id="content" class="show-wysiwyg">
-	<div id="wysiwyg">
+	<div id="wysiwyg" class="not-editing">
 		<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
 	</div>
 	<div id="source">

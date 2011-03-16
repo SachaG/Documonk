@@ -12,8 +12,13 @@ $().ready(function() {
 	$(".toc a").click(initTOC);
 	
 	$("#palette .contents").tabs({ 
-		disabled: 		[2,3]
-		,selected: 		0 
+		selected: 		0
+		,select: 		function(event, ui) {		
+			if(ui.index==3 && $("#wysiwyg").hasClass("not-editing") ){
+				switchEditMode();
+			}
+		}
+
 	});
 	
 	/*
@@ -78,17 +83,18 @@ $().ready(function() {
 		if(editSwitch.hasClass("inactive-switch")){
 				$("#edit-switch").removeClass("inactive-switch").addClass("active-switch");
 				$('#wysiwyg').scribe.startEditing();
-				pTabs.tabs("option","disabled",[]);
+				//pTabs.tabs("option","disabled",[]);
 				$(document).bind('keydown', 'meta+s', saveDocument);
 				$("h1").addClass("editing").attr('contentEditable', true);
 		}else{
 				$("#edit-switch").removeClass("active-switch").addClass("inactive-switch");
 				$('#wysiwyg').scribe.stopEditing();
 				var selectedTab=$(".ui-tabs-selected").index(".navigation>li");
-				if(selectedTab==2 || selectedTab==3){
+				/*if(selectedTab==3){
 					$('#palette .contents').tabs( "select" , 0 );
 				}
-				pTabs.tabs("option","disabled",[2,3]);
+				pTabs.tabs("option","disabled",[3]);
+				*/
 				$(document).unbind('keydown', saveDocument);
 				if($("#content").hasClass("show-source")){
 					switchSource();
@@ -98,7 +104,6 @@ $().ready(function() {
 		}
 		return false;		
 	}
-	
 	
 	$("#source-switch").click(switchSource);
 	

@@ -34,8 +34,11 @@
 				<li class="info first"><a href="#info"><span>Info</span></a></li>
 				<li class="toc"><a href="#toc"><span>T.O.C.</span></a></li>
 				<% if can? :update, @document %>
+					<!--
+					<li class="stats"><a href="#stats"><span>Stats</span></a></li>
+					-->
+					<li class="settings"><a href="#settings"><span>Settings</span></a></li>
 					<li class="edit-only typography"><a href="#typography"><span>Typography</span></a></li>
-					<li class="edit-only settings"><a href="#settings"><span>Settings</span></a></li>
 				<% end %>
 				<!--
 				<li class="profile"><a href="#profile"><span>Profile</span></a></li>
@@ -46,17 +49,67 @@
 				<li class="fill"></li>
 			</ul>
 			<div id="info">
+				<div class="content">
 				<%#= link_to "Download PDF", document_path(@document, :format => "pdf") %><br/>
-				*coming soon*
+				<% if user_signed_in? %>
+					<span class="small">Signed in as <%= link_to current_user.email, current_user %> (<%= current_user.role! %>)</span> |
+				<% end %>
+				<%= link_to "All Documents", documents_path %> |
+				<% if user_signed_in? %>	 		
+			 		<%= link_to "New Document", new_document_path %> |
+					<% if current_user.role? :admin %>
+						<%= link_to "Users", users_path %> |
+					<% end %>
+					<%= link_to "Sign Out", destroy_user_session_path %>
+			  	<% else %>
+			 		<%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign In", new_user_session_path %>
+				<% end %>
+				</div>
 			</div>
 			<div id="toc">
+				<h3>Table of Contents</h3>
+				<div class="content">
 				<!--
 				<h4><%= @document.title %></h4>
 				-->
 				<ol id="toc-inner"></ol>
+				</div>
 			</div>
 			<% if can? :update, @document %>
+			<!--
+			<div id="stats">
+				*coming soon*
+			</div>
+			-->
+			<div id="settings">
+				<h3>Settings</h3>
+				<div class="content">
+				<%= form_for(@document) do |f| %>
+				  <%= render 'shared/error_messages', :object => f.object %>
+				  <div class="field">
+					<h4>Google Analytics</h4>
+					<p class="small">Enter your Google Analytics tracking code here to enable analytics.</p>
+				    <%= f.text_field :stats_code %>
+				  </div>
+				  <div class="field">
+					<h4>Make document private?</h4>
+					<p class="small">Choose "private" if you want your document to only be accessible via its URL</p>
+					<%= f.label :public, "Public" %>
+				    <%= f.radio_button :public, true %><br />
+					<%= f.label :public, "Private" %>
+					<%= f.radio_button :public, false %>
+				  </div>
+				  <div class="actions">
+				    <%= f.submit "Submit" %>
+				  </div>
+				<% end %>
+
+				
+				</div>
+			</div>
 			<div id="typography">
+				<h3>Typography</h3>
+				<div class="content">
 				Now editing…<br/>
 				<ul>
 				<li><a class="saveLink" href="#">Save</a></li>
@@ -89,22 +142,7 @@
 					<% if can? :update, @document %>
 				<%= link_to "Edit Document", edit_document_path %>
 			<% end %>
-		
-			</div>
-			<div id="settings">
-		<% if user_signed_in? %>
-			<span class="small">Signed in as <%= link_to current_user.email, current_user %> (<%= current_user.role! %>)</span> |
-		<% end %>
-		<%= link_to "All Documents", documents_path %> |
-		<% if user_signed_in? %>	 		
-	 		<%= link_to "New Document", new_document_path %> |
-			<% if current_user.role? :admin %>
-				<%= link_to "Users", users_path %> |
-			<% end %>
-			<%= link_to "Sign Out", destroy_user_session_path %>
-	  	<% else %>
-	 		<%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign In", new_user_session_path %>
-		<% end %>
+				</div>
 			</div>
 		<% end %>
 		</div>

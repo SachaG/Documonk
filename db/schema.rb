@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110315091220) do
+ActiveRecord::Schema.define(:version => 20110316032426) do
 
   create_table "documents", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20110315091220) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "public"
+    t.string   "stats_code"
   end
 
 # Could not dump table "notes" because of following StandardError
