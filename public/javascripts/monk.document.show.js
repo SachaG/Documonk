@@ -63,8 +63,10 @@ $().ready(function() {
 		,href: 					"#logout"
 	});
 	
-	$("#palette .minmax").click(function(){
-		var button=$(this);
+	$("#palette .minmax").click(minMax);
+	
+	function minMax(){
+		var button=$(".minmax");
 		if(button.hasClass("minimize")){
 				button.removeClass("minimize").addClass("maximize");
 				$("#palette").removeClass("maximized").addClass("minimized");	
@@ -72,9 +74,15 @@ $().ready(function() {
 				button.removeClass("maximize").addClass("minimize");
 				$("#palette").removeClass("minimized").addClass("maximized");	
 		}
-	});
-	
+		return false	
+	}
+
+	$(document).bind('keydown', 'meta+e', switchEditMode);
+	$(document).bind('keydown', 'ctrl+e', switchEditMode);
+	$(document).bind('keydown', 'esc', minMax);	
+		
 	$("#edit-switch").click(switchEditMode);
+
 	
 	function switchEditMode(){
 		var editSwitch=$("#edit-switch");
@@ -85,6 +93,7 @@ $().ready(function() {
 				$('#wysiwyg').scribe.startEditing();
 				//pTabs.tabs("option","disabled",[]);
 				$(document).bind('keydown', 'meta+s', saveDocument);
+				$(document).bind('keydown', 'ctrl+s', saveDocument);
 				$("h1").addClass("editing").attr('contentEditable', true);
 		}else{
 				$("#edit-switch").removeClass("active-switch").addClass("inactive-switch");
