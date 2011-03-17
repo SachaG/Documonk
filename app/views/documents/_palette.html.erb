@@ -59,8 +59,9 @@
 					<%#= link_to "Download PDF", document_path(@document, :format => "pdf") %>
 					<hr/>
 					<% end %>
-					<% unless @document.user.nil? %>
-					<p><strong>Author</strong>: <a href="http://twitter.com/<%= @document.user.twitter_account %>"><%= @document.user.twitter_account %></a></p>
+					<% unless @document.user.twitter_account.nil? or @document.user.twitter_account=="" %>
+					<p><strong>Author</strong>: @<a href="http://twitter.com/<%= @document.user.twitter_account %>"><%= @document.user.twitter_account %></a></p>
+					<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="Documonk">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 					<hr/>
 					<% end %>
 					<% if user_signed_in? %>
@@ -72,7 +73,7 @@
 						</div>
 					<% else %>
 						<div class="docu-intro">
-							<p>This document is powered by <a href="/documents/1">Documonk</a>, a free service to host and edit documents. Give it a try and<%#= link_to "Sign up now!", new_user_registration_path %></p>
+							<p>This document was written with <a href="/documents/1">Documonk</a>, a free service to create documents. Give it a try!<%#= link_to "Sign up now!", new_user_registration_path %></p>
 							<p><a href="<%= new_user_registration_path %>" class="button">Create a document</a></p>
 							<hr/>
 							<p>Have an account? <%= link_to "Sign in", new_user_session_path, :class =>
@@ -137,12 +138,27 @@
 			<div id="typography">
 				<h3>Typography</h3>
 				<div class="content">
+					<ul class="toolbar">
+						<li><a class="button boldLink" href="#"><span>Make bold</span></a></li>
+						<li><a class="button italicLink" href="#"><span>Make italic</span></a></li>
+						<!--
+						<li><a class="leftLink" href="#">Justify left</a></li>
+						<li><a class="rightLink" href="#">Justify right</a></li>
+						-->
+						<li><a class="button linkLink" href="#"><span>Make link</span></a></li>
+						<li><a class="button hrLink" href="#"><span>Insert HR</span></a></li>
+						<li><a class="button ulLink" href="#"><span>Insert UL</span></a></li>
+						<li><a class="button olLink" href="#"><span>Insert OL</span></a></li>
+					</ul>
+					<hr/>
 					<ul>
-					<li><a class="boldLink" href="#">Make bold</a></li>
-					<li><a class="italicLink" href="#">Make italic</a></li>
-					<li><a class="leftLink" href="#">Justify left</a></li>
-					<li><a class="rightLink" href="#">Justify right</a></li>
-					<li><a class="linkLink" href="#">Make link</a></li>
+						<li><a class="pLink" href="#">Make Paragraph</a></li>
+						<li><a class="h2Link" href="#">Make h2</a></li>
+						<li><a class="h3Link" href="#">Make h3</a></li>
+						<li><a class="h4Link" href="#">Make h4</a></li>
+						<li><a class="h5Link" href="#">Make h5</a></li>
+					</ul>
+					<!--
 					<li>
 						<select class="headerSelect">
 							<option value="p">Paragraph</option>
@@ -152,7 +168,8 @@
 							<option value="h4">H5</option>
 						</select>
 					</li>
-					</ul>
+					-->
+					
 				</div>
 			</div>
 		<% end %>

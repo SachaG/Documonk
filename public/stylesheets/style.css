@@ -541,6 +541,36 @@ h1{
 .user-info, .docu-intro{
 
 }
+/*----------------------------------------------------- TOOLBAR ----------------------------------------------------*/
+.toolbar{
+	list-style-type:none;
+	overflow:hidden;
+	margin:0 0 5px 0;
+	padding:0;
+}
+.toolbar li{
+	display:block;
+	float:left;
+	margin:0 5px 5px 0;
+}
+.toolbar .button{
+	padding:0;
+}
+.toolbar .button span{
+	background:url("../images/typography-sprite.png") no-repeat top left;
+	width:16px;
+	display:block;
+	margin:3px;
+	text-indent:-900px;
+	overflow:hidden;	
+}
+.toolbar .hrLink span{ 	background-position:0 0;}
+.toolbar .italicLink span{	background-position:0 -16px;}
+.toolbar .boldLink span{ 	background-position:0 -32px;}
+.toolbar .linkLink span{	background-position:0 -80px;}
+.toolbar .olLink span{	background-position:0 -96px;}
+.toolbar .ulLink span{ 	background-position:0 -112px;}
+
 /*----------------------------------------------------- ELEMENTS ----------------------------------------------------*/
 .monk-elem{
 	background:rgba(0,0,0,0.05);

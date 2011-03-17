@@ -51,7 +51,15 @@
 										["helloLink", "insertHello"],
 										["codeLink", "wrapCode"],
 										["headerSelect", "wrapHeader","select"],
-										["save-button","saveCommand"]
+										["save-button","saveCommand"],
+										["hrLink","inserthorizontalrule"],
+										["ulLink","insertunorderedlist"],
+										["olLink","insertorderedlist"],
+										["pLink", "p"],
+										["h2Link","h2"],
+										["h3Link","h3"],
+										["h4Link","h4"],
+										["h5Link","h5"],
 									]
             },
             args));
@@ -133,6 +141,21 @@
 					break;
 				case "wrapHeader":
 					document.execCommand("formatblock", null, "<"+$(global.selected).val()+">");
+					break;
+				case "p":
+					document.execCommand("formatblock", null, "p");
+					break;
+				case "h2":
+					document.execCommand("formatblock", null, "h2");
+					break;
+				case "h3":
+					document.execCommand("formatblock", null, "h3");
+					break;
+				case "h4":
+					document.execCommand("formatblock", null, "h4");
+					break;
+				case "h5":
+					document.execCommand("formatblock", null, "h5");
 					break;
 				case "wrapLink":
 					//get parent <a> tag closest to current selection

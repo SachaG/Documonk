@@ -7,7 +7,7 @@ class Ability
      if user.role? :admin
        can :manage, :all
      else
-       can :read, :all
+       can :read, Document, :all
        can :create, Document
        can :update, Document do |document|
          document.try(:user) == user
@@ -15,6 +15,7 @@ class Ability
        can :destroy, Document do |document|
          document.try(:user) == user
        end
+       can :read, User, :id => user.id
        can :update, User, :id => user.id
      end
     #

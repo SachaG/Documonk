@@ -3,8 +3,10 @@
   <%= @user.email %>
 </h1>
 <ul>
+		<% if current_user.role?(:admin) %>
 	<li><strong>Role:</strong> <%= @user.role! %> </li>
 	<li><strong>URL:</strong>  <%= link_to user_path(@user), @user %></li>
+		<% end %>
 	<li><strong>Twitter:</strong>  <%= @user.twitter_account %></li>
 	<li><% if can? :edit, @user %>
 		<%= link_to "Edit", edit_user_path(@user) %>

@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
   before_filter :set_user, :only => [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
     @title = "All users"
     @users = User.all
+    authorize! :read, @user
   end
 
   def show
-    @documents = current_user.documents   
+    @documents = @user.documents
   end
 
   

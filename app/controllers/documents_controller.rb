@@ -3,6 +3,7 @@ class DocumentsController < ApplicationController
   
   def index
     @document = Document.all
+    authorize! :read, @document
   end
   
   def show
@@ -11,7 +12,7 @@ class DocumentsController < ApplicationController
 
   def new
     @title = "Create new document"
-    @document = current_user.documents.build(:title => 'New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!')
+    @document = current_user.documents.build(:title => 'My New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!')
     #@document = Document.new :user => current_user, :title => 'New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!'  
     render :action => 'show'
   end
@@ -49,6 +50,7 @@ class DocumentsController < ApplicationController
     Document.find(params[:id]).destroy
     flash[:success] = "Document destroyed."
     redirect_to documents_path
+    authorize! :destroy, @document
   end
 
  
