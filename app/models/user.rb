@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   #see http://ramblings.gibberishcode.net/archives/rails-has-and-belongs-to-many-habtm-demystified/17
   attr_accessor :role_list
+  #after_save is called every time you create a new session? check this
   after_save :update_roles
   
   def role?(role)
@@ -40,8 +41,10 @@ class User < ActiveRecord::Base
 
       def update_roles
         # puts "roles => #{role_list.inspect}"
-        roles.delete_all
-        selected_roles = role_list.nil? ? [] : role_list.keys.collect{|id| Role.find_by_id(id)}
-        selected_roles.each {|role| self.roles << role}
+        unless role_list.nil?
+          roles.delete_all
+          selected_roles = role_list.keys.collect{|id| Role.find_by_id(id)}
+          selected_roles.each {|role| self.roles << role}
+        end
       end
 end

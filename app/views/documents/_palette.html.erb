@@ -69,18 +69,19 @@
 						<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="" layout="button_count" show_faces="false" width="139" font=""></fb:like>
 						</div>
 					
-
-<iframe border="0" scrolling="no" width="78" height="17" allowtransparency="true" frameborder="0"
- style="margin-bottom: -3px; z-index: 1338; border: 0px; background-color: transparent; overflow: hidden;"
- src="http://www.instapaper.com/e2?url=<%= CGI.escape(request.url) %>&title=<%= CGI.escape(@document.title) %>"
-></iframe>
+					<iframe border="0" scrolling="no" width="78" height="17" allowtransparency="true" frameborder="0"
+					 style="margin-bottom: -3px; z-index: 1338; border: 0px; background-color: transparent; overflow: hidden;"
+					 src="http://www.instapaper.com/e2?url=<%= CGI.escape(request.url) %>&title=<%= CGI.escape(@document.title) %>"
+					></iframe>
 
 					</div>
 					<hr/>
 				
 					<% if user_signed_in? %>
 						<div class="user-info">
+							<!--
 							<p>Signed in as <strong><%= link_to current_user.email, user_path(current_user) %></strong></p>
+							-->
 							<ul>
 								<li><%= link_to "My Documents", user_path(current_user) %></li>
 								<li><%= link_to "My Account", edit_user_path(current_user) %></li>
