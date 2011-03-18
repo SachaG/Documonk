@@ -474,6 +474,9 @@ h1{
 #palette .content{
 	padding:10px 15px;
 }
+#palette .content ul{
+	margin-bottom:10px;
+}
 #palette h3{
 	background:rgba(0,0,0,0.05);
 	font-size:13px;
@@ -541,6 +544,29 @@ h1{
 .user-info, .docu-intro{
 
 }
+.social-media{
+	margin-bottom:10px;
+}
+.facebook{
+	margin-bottom:5px;
+}
+.white_bookmarklet {
+display: inline-block;
+font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
+font-weight: bold;
+font-size: 11px;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+color: #444444;
+background-color: #F8F8F8;
+border: 1px solid #AAA;
+padding: 0px 7px 1px 7px;
+min-width: 62px;
+text-align: center;
+vertical-align: 2px;
+text-decoration: none;
+}
 /*----------------------------------------------------- TOOLBAR ----------------------------------------------------*/
 .toolbar{
 	list-style-type:none;
@@ -570,6 +596,7 @@ h1{
 .toolbar .linkLink span{	background-position:0 -80px;}
 .toolbar .olLink span{	background-position:0 -96px;}
 .toolbar .ulLink span{ 	background-position:0 -112px;}
+.toolbar .codeLink span{ 	background-position:0 -128px;}
 
 /*----------------------------------------------------- ELEMENTS ----------------------------------------------------*/
 .monk-elem{
@@ -628,4 +655,13 @@ h1{
 .footer li{
 	display:inline-block;
 	margin-right:15px;
+}
+/*----------------------------------------------------- STYLES ----------------------------------------------------*/
+
+pre{
+	background:#F0F0F0;
+	padding:10px;
+}
+pre code{
+	padding:0;
 }

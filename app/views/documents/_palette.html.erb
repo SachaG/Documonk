@@ -54,22 +54,36 @@
 				-->
 				<div class="content">
 					<h4><%= @document.title %></h4>
-					<% unless @document.updated_at.nil? %>
-					<p>Last updated: <%= time_ago_in_words(@document.updated_at) %> ago.</p>
-					<%#= link_to "Download PDF", document_path(@document, :format => "pdf") %>
-					<hr/>
-					<% end %>
 					<% unless @document.user.twitter_account.nil? or @document.user.twitter_account=="" %>
-					<p><strong>Author</strong>: @<a href="http://twitter.com/<%= @document.user.twitter_account %>"><%= @document.user.twitter_account %></a></p>
-					<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="Documonk">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-					<hr/>
+						<p><strong>Author</strong>: <a href="http://twitter.com/<%= @document.user.twitter_account %>">@<%= @document.user.twitter_account %></a></p>
 					<% end %>
+					<% unless @document.updated_at.nil? %>
+						<p class="small">Last updated: <%= time_ago_in_words(@document.updated_at) %> ago.</p>
+						<%#= link_to "Download PDF", document_path(@document, :format => "pdf") %>	
+					<% end %>
+					<hr/>
+					<div class="social-media">
+						<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="Documonk">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+					
+						<div class="facebook">
+						<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="" layout="button_count" show_faces="false" width="139" font=""></fb:like>
+						</div>
+					
+						<a href="http://www.instapaper.com/hello2?url=<%= request.url %>&amp;title=<%= @document.title %>
+" class="instapaper-link white_bookmarklet">Read Later</a>
+
+					</div>
+					<hr/>
+				
 					<% if user_signed_in? %>
 						<div class="user-info">
 							<p>Signed in as <strong><%= link_to current_user.email, user_path(current_user) %></strong></p>
-							<p><a href="/documents/new" class="button">New document</a></p>
-							<p><%= link_to "Edit account", edit_user_path(current_user) %></p>
-							<p><%= link_to "Sign out", destroy_user_session_path %>	</p>
+							<ul>
+								<li><%= link_to "My Documents", user_path(current_user) %></li>
+								<li><%= link_to "My Account", edit_user_path(current_user) %></li>
+								<li><%= link_to "Sign Out", destroy_user_session_path %></li>
+							</ul>
+					<p><a href="/documents/new" class="button">New document</a></p>
 						</div>
 					<% else %>
 						<div class="docu-intro">
@@ -141,6 +155,7 @@
 					<ul class="toolbar">
 						<li><a class="button boldLink" href="#"><span>Make bold</span></a></li>
 						<li><a class="button italicLink" href="#"><span>Make italic</span></a></li>
+						<li><a class="button codeLink" href="#"><span>Wrap with PRE</span></a></li>
 						<!--
 						<li><a class="leftLink" href="#">Justify left</a></li>
 						<li><a class="rightLink" href="#">Justify right</a></li>

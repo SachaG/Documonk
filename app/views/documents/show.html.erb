@@ -1,5 +1,5 @@
 <%#= render 'highlight' %>
-<%= render 'chili' %>
+<%#= render 'chili' %>
 <%#= render 'documents/aloha' %>
 <%= render 'documents/custom' %>
 
@@ -38,10 +38,10 @@
 
 <%= render 'documents/palette' %>
 
-<h1><%= @document.title %></h1>
+<h1 class="instapaper_title"><%= @document.title %></h1>
 
 <div id="content" class="show-wysiwyg">
-	<div id="wysiwyg" class="not-editing">
+	<div id="wysiwyg" class="not-editing instapaper_body">
 		<%= raw Sanitize.clean(@document.content, Sanitize::Config::RELAXED) %>
 	</div>
 	<div id="source">
