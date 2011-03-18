@@ -69,7 +69,7 @@
 						<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="" layout="button_count" show_faces="false" width="139" font=""></fb:like>
 						</div>
 					
-						<a href="http://www.instapaper.com/hello2?url=<%= request.url %>&amp;title=<%= @document.title %>
+						<a href="http://www.instapaper.com/hello2?url=<%= CGI.escape(request.url) %>&amp;title=<%= CGI.escape(@document.title) %>
 " class="instapaper-link white_bookmarklet">Read Later</a>
 
 					</div>
