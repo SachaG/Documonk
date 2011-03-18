@@ -2,6 +2,7 @@
   <%= gravatar_for @user %>
   <%= @user.email %>
 </h1>
+	<p><a href="/documents/new" class="button">Create new document</a></p>
 <ul>
 		<% if current_user.role?(:admin) %>
 	<li><strong>Role:</strong> <%= @user.role! %> </li>

@@ -118,38 +118,41 @@
 			<div id="settings">
 				<h3>Settings</h3>
 				<div class="content">
-				<%= form_for(@document) do |f| %>
-				  <%= render 'shared/error_messages', :object => f.object %>
-				  <div class="field">
-					<h4>Google Analytics</h4>
-				    <%= f.text_field :stats_code %>
-									<p class="small description">Enter your Google Analytics tracking code here to enable analytics (something like "UA-1234567-89").</p>
+				<% if @new %>
+					<p>Please save your new document first.<p>
+				<% else %>
+					<%= form_for(@document) do |f| %>
+					  <%= render 'shared/error_messages', :object => f.object %>
+					  <div class="field">
+						<h4>Google Analytics</h4>
+					    <%= f.text_field :stats_code %>
+										<p class="small description">Enter your Google Analytics tracking code here to enable analytics (something like "UA-1234567-89").</p>
 
-				  </div>
-				  <div class="field">
-					<h4>Make document private?</h4>
-					<p>
-					<span class="public">
-						<%= f.label :public_true, "Public" %>
-				    	<%= f.radio_button :public, true %>
-					</span>
-					<span class="private">
-						<%= f.label :public_false, "Private" %>
-						<%= f.radio_button :public, false %>
-					</span>
-					</p>
-										<p class="small description">Choose "private" if you don't want your document to appear in public listings</p>
+					  </div>
+					  <div class="field">
+						<h4>Make document private?</h4>
+						<p>
+						<span class="public">
+							<%= f.label :public_true, "Public" %>
+					    	<%= f.radio_button :public, true %>
+						</span>
+						<span class="private">
+							<%= f.label :public_false, "Private" %>
+							<%= f.radio_button :public, false %>
+						</span>
+						</p>
+											<p class="small description">Choose "private" if you don't want your document to appear in public listings</p>
 
-				  </div>
-				  <div class="actions save">
-				    <%#= f.submit "Submit" %>
-					<input id="settings_submit" name="commit" type="submit" value="Submit">
-					<span class="loader"></span>
-					<span class="success-indicator"></span>
-					<span class="error-indicator"></span>
-				  </div>
+					  </div>
+					  <div class="actions save <% if !@new %>ajax-save<% end %>">
+					    <%= f.submit "Submit" %>
+					
+						<span class="loader"></span>
+						<span class="success-indicator"></span>
+						<span class="error-indicator"></span>
+					  </div>
+					<% end %>
 				<% end %>
-
 				
 				</div>
 			</div>

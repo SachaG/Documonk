@@ -14,6 +14,7 @@ class DocumentsController < ApplicationController
     @title = "Create new document"
     @document = current_user.documents.build(:title => 'My New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!')
     #@document = Document.new :user => current_user, :title => 'New Document', :content => 'This is your document\'s content. Click on the "view/edit" switch in the floating palette to get started!'  
+    @new=true
     render :action => 'show'
   end
   
@@ -49,7 +50,7 @@ class DocumentsController < ApplicationController
   def destroy
     Document.find(params[:id]).destroy
     flash[:success] = "Document destroyed."
-    redirect_to documents_path
+    redirect_to user_path(current_user)
     authorize! :destroy, @document
   end
 

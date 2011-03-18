@@ -15,7 +15,7 @@
   <%= yield :head %>
 
 </head>
-<body>
+<body class="<% if !@new %>ajax-enabled<% end %>">
 	<!-- layouts/application.html.erb -->
 <div id="container">
 	<div id="header">
