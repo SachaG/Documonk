@@ -12,7 +12,7 @@
     <%= f.label :twitter_account %><br />
     <%= f.text_field :twitter_account %>
   </div>
-	<% if current_user.role?(:admin) or current_user.email="sacha357@gmail.com" %>
+	<% if current_user.role?(:admin) # or current_user.email="sacha357@gmail.com" %>
 	  <div class="field">
 	    <%#= f.label :role %><br />
 	    <%#= f.text_field :role %>
